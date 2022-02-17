@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="CertificationsStepDefinitions.cs" />
     <Compile Include="DescriptionStepDefinitions.cs" />
+    <Compile Include="EducationStepDefinitions.cs" />
     <Compile Include="LanguageStepDefinitions.cs" />
     <Compile Include="LoginPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

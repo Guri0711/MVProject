@@ -1,7 +1,9 @@
 using MVProject.Utilites;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using TechTalk.SpecFlow;
 
@@ -74,23 +76,61 @@ namespace MVProject
             addButton.Click();
 
 
-             driver.Quit();
+            
+            //Update the language
+
+            Thread.Sleep(5000);
+            IWebElement languageUpdateIcon = driver.FindElement(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.active.tooltip-target > div > div.twelve.wide.column.scrollTable > div > table > tbody > tr > td.right.aligned > span:nth-child(1) > i"));
+            languageUpdateIcon.Click();
+
+            IWebElement languageEdit = driver.FindElement(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.active.tooltip-target > div > div.twelve.wide.column.scrollTable > div > table > tbody > tr > td > div > div:nth-child(1) > input[type=text]"));
+            languageEdit.Clear();
+            languageEdit.SendKeys("English");
+
+            // Click on Update Button
+            IWebElement languageUpdateButton = driver.FindElement(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.active.tooltip-target > div > div.twelve.wide.column.scrollTable > div > table > tbody > tr > td > div > span > input.ui.teal.button"));
+            languageUpdateButton.Click();
+
+            //IWebElement actualLanguage = driver.FindElement(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.active.tooltip-target > div > div.twelve.wide.column.scrollTable > div > table > tbody > tr > td > div > span > input.ui.teal.button"));
+
+            ////Assertion
+            //Assert.That(actualLanguage.Text == "Punjabi", "Test Failed.");
+
+
+
+            //Click on delete
+
+            Thread.Sleep(5000);
+            IWebElement languageDeleteButton = driver.FindElement(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.active.tooltip-target > div > div.twelve.wide.column.scrollTable > div > table > tbody:nth-child(3) > tr > td.right.aligned > span:nth-child(2) > i"));
+            languageDeleteButton.Click();
+
+
+
+            driver.Close();
+
 
         }
 
-        [Then(@": The languages should be added")]
-        public void ThenTheLanguagesShouldBeAdded()
+        public string GetLanguage()
+        { 
+
+        IWebElement actualLanguage = driver.FindElement(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.active.tooltip-target > div > div.twelve.wide.column.scrollTable > div > table > tbody > tr > td > div > span > input.ui.teal.button"));
+
+
+         IList<IWebElement> actualLanguages = driver.FindElements(By.CssSelector("#account-profile-section > div > section:nth-child(3) > div > div > div > div.eight.wide.column > form > div.ui.bottom.attached.tab.segment.tooltip-target.active > div > div.twelve.wide.column.scrollTable > div > table"));
+         Console.WriteLine(actualLanguages.Count);
+         foreach (IWebElement aPart in actualLanguages)
         {
-           // IWebElement acutalLanguage = driver.FindElement(By.XPath("//table/tbody/tr"));
-
-           // if (acutalLanguage.Text == "Punjabi")
-            //{
-              //  Console.WriteLine("Language added, test passed.");
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Test Failed");
-            //}
+         Console.WriteLine(aPart.Text);
         }
+
+        return actualLanguage.Text;
+
+            
+
+        }
+        
+       
+
     }
 }
